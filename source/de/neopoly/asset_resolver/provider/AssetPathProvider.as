@@ -9,5 +9,9 @@ public class AssetPathProvider implements IAssetPathProvider {
   public function assetPathFor(key:String):String {
     return (_map && _map[key]) || null;
   }
+
+  public function hasAssetPathFor(key:String):Boolean {
+    return assetPathFor(key) !== null;
+  }
 }
 }

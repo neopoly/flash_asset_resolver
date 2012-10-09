@@ -9,5 +9,6 @@ package de.neopoly.asset_resolver.provider {
 public interface IAssetPathProvider {
 
   function assetPathFor(key:String):String;
+  function hasAssetPathFor(key:String):Boolean;
 }
 }
