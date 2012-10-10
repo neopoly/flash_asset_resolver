@@ -1,4 +1,6 @@
 package de.neopoly.asset_resolver.provider {
+import de.neopoly.asset_resolver.event.AssetResolverEvent;
+
 public class AssetPathProvider implements IAssetPathProvider {
   private var _map:Object; // maps key to path
   private var _initiated:Boolean;
@@ -7,6 +9,9 @@ public class AssetPathProvider implements IAssetPathProvider {
     _initiated = false;
   }
 
+  /**
+   * Set key -> pathname mapping
+   */
   public function setMap(map:Object):AssetPathProvider {
     _map = map;
     _initiated = true;
@@ -18,7 +23,8 @@ public class AssetPathProvider implements IAssetPathProvider {
   }
 
   public function init(on_complete:Function, on_error:Function):void {
-    // nothing to do here for basic implementation
+    // in basic implementation the on_compete_callback
+    on_complete(AssetResolverEvent.initCompleteEvent());
   }
 
   public function assetPathFor(key:String):String {

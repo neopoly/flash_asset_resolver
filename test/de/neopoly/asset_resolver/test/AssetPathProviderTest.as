@@ -22,7 +22,7 @@ public class AssetPathProviderTest {
 
   [Before]
   public function setUp():void {
-    _provider = new AssetPathProvider({
+    _provider = new AssetPathProvider().setMap({
       one: "one-123",
       two: "two-123"
     });
