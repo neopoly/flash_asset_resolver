@@ -29,6 +29,36 @@ public class AssetPathProviderTest {
   }
 
   [Test]
+  public function testInit():void {
+    var p:AssetPathProvider = new AssetPathProvider();
+    assertFalse(p.initiated);
+
+    var errors:int = 0;
+    var oks:int = 0;
+
+    var on_error:Function = function (...ignore):void {
+      errors++;
+    };
+
+    var on_ok:Function = function():void {
+      oks++;
+    };
+
+    assertEquals(errors, 0);
+    assertEquals(oks, 0);
+
+    // error callback called when not initiated
+    p.init(on_ok, on_error);
+    assertEquals(errors, 1);
+    assertEquals(oks, 0);
+
+    // ok callback called when initiated
+    p.setMap({}).init(on_ok, on_error);
+    assertEquals(errors, 1);
+    assertEquals(oks, 1);
+  }
+
+  [Test]
   public function testHasAssetPathFor():void {
     assertTrue(_provider.hasAssetPathFor("one"));
     assertFalse(_provider.hasAssetPathFor("onex"));
