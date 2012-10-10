@@ -1,5 +1,5 @@
 package de.neopoly.asset_resolver.provider {
-import de.neopoly.asset_resolver.event.AssetResolverEvent;
+import de.neopoly.asset_resolver.provider.AssetPathProviderEvent;
 
 public class AssetPathProvider implements IAssetPathProvider {
   private var _map:Object; // maps key to path
@@ -24,7 +24,7 @@ public class AssetPathProvider implements IAssetPathProvider {
 
   public function init(on_complete:Function, on_error:Function):void {
     // in basic implementation the on_compete_callback
-    on_complete(AssetResolverEvent.initCompleteEvent());
+    on_complete(AssetPathProviderEvent.initCompleteEvent());
   }
 
   public function assetPathFor(key:String):String {
