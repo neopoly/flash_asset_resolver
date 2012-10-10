@@ -7,6 +7,9 @@ public class AssetResolver extends EventDispatcher {
   public static const VERSION:String = "0.0.1";
   private var _provider:Array;
 
+  private var _on_complete:Function;
+  private var _on_error:Function;
+
   public function AssetResolver(...provider) {
     if (provider && provider.length > 0) {
       _provider = provider;
@@ -20,15 +23,10 @@ public class AssetResolver extends EventDispatcher {
 
   /**
    * Initializes all added AssetPathProvider
-   * @param complete_callback       Provider-init can be async, so there is a callback, but you don't need, because also "complete-event" is fired
-   * @param error_callback          Called for each single provider that causes an error. If given: overrides previous callback set by "onError"
+   * @param complete_callback       Provider-init can be async, so please wait for callback. No args.
+   * @param error_callback          Called for each single provider that causes an error. Gets Error as arg.
    */
   public function initAllProvider(complete_callback:Function = null, error_callback:Function = null):AssetResolver {
-    // todo
-    return this;
-  }
-
-  public function onError(callback:Function):AssetResolver {
     // todo
     return this;
   }

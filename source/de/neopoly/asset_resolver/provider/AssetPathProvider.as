@@ -1,3 +1,10 @@
+/**
+ * AssetPathProvider
+ *
+ * Use it as baseclass for more complicated path provider.
+ * - Override init(...)
+ * - Calling 'setMap' will set 'initiated'
+ */
 package de.neopoly.asset_resolver.provider {
 
 public class AssetPathProvider implements IAssetPathProvider {
@@ -22,11 +29,11 @@ public class AssetPathProvider implements IAssetPathProvider {
   }
 
   public function init(on_complete:Function, on_error:Function):void {
-    // in basic implementation the on_compete_callback
+    // That's just for the basic implementation! The use of "setMap" will set _initiated, so if setMap was already called, the complete callback will fire, otherwise the error fallback.
     if(_initiated) {
       on_complete();
     } else {
-      on_error(null);
+      on_error(new Error("'key -> pathname' map not initiated. Call 'setMap' before."));
     }
   }
 

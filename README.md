@@ -10,7 +10,7 @@ Desired usage (how I'd like to use the resolver)
    new AssetResolver(
      new ManifestAssetPathProvider("http://my/asset/host"),
      new ManifestAssetPathProvider("http://my/other/asset/host")
-   ).onError(myErrorCallback).init(myCompleteCallback);
+   ).init(myCompleteCallback, myErrorCallback);
 
 
 Requires
