@@ -18,8 +18,14 @@ public class AssetResolver extends EventDispatcher {
     return this;
   }
 
-  public function initAllProvider(complete_callback:Function = null, error_callback:Function = null):void {
-
+  /**
+   * Initializes all added AssetPathProvider
+   * @param complete_callback       Provider-init can be async, so there is a callback, but you don't need, because also "complete-event" is fired
+   * @param error_callback          Called for each single provider that causes an error. If given: overrides previous callback set by "onError"
+   */
+  public function initAllProvider(complete_callback:Function = null, error_callback:Function = null):AssetResolver {
+    // todo
+    return this;
   }
 
   public function onError(callback:Function):AssetResolver {
