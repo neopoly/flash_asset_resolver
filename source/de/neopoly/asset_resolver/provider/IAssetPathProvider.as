@@ -6,6 +6,7 @@
  * To change this template use File | Settings | File Templates.
  */
 package de.neopoly.asset_resolver.provider {
+
 public interface IAssetPathProvider {
 
   function assetPathFor(key:String):String;
@@ -13,8 +14,8 @@ public interface IAssetPathProvider {
 
   /**
    * Will cause initialisation
-   * @param on_complete     called when init complete, gets AssetResolverEvent
-   * @param on_error        called on init error, gets AssetResolverEvent
+   * @param on_complete     called when init complete, no args
+   * @param on_error        called on init error, gets Error as arg
    */
   function init(on_complete:Function, on_error:Function):void;
   function get initiated():Boolean;
