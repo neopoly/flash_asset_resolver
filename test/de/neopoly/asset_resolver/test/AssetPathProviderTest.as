@@ -38,6 +38,7 @@ public class AssetPathProviderTest {
   public function testAssetPathFor():void {
     assertEquals(_provider.assetPathFor("one"), "one-123");
     assertEquals(_provider.assetPathFor("two"), "two-123");
+    assertEquals(_provider.assetPathFor("three"), null);
   }
 }
 }
