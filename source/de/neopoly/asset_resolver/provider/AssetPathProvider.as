@@ -28,13 +28,14 @@ public class AssetPathProvider implements IAssetPathProvider {
     return _initiated;
   }
 
-  public function init(on_complete:Function, on_error:Function):void {
+  public function init(on_complete:Function, on_error:Function):IAssetPathProvider {
     // That's just for the basic implementation! The use of "setMap" will set _initiated, so if setMap was already called, the complete callback will fire, otherwise the error fallback.
     if(_initiated) {
       on_complete();
     } else {
       on_error(new Error("'key -> pathname' map not initiated. Call 'setMap' before."));
     }
+    return this;
   }
 
   public function assetPathFor(key:String):String {
