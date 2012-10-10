@@ -5,14 +5,15 @@ public class AssetResolver implements IAssetPathProvider {
   public static const VERSION:String = "0.0.1";
   private var _provider:Array;
 
-  private var _on_complete:Function;
-
   public function AssetResolver(...provider) {
     if (provider && provider.length > 0) {
       _provider = provider;
     }
   }
 
+  /**
+   * Note: if AssetResolver is already initialized, a newly added provider still needs to be initialized itself! Just recall AssetResolver.init(...)
+   */
   public function addProvider(provider:IAssetPathProvider):AssetResolver {
     (_provider || (_provider = [])).push(provider);
     return this;
@@ -23,10 +24,16 @@ public class AssetResolver implements IAssetPathProvider {
   }
 
   public function init(on_complete:Function, on_error:Function):IAssetPathProvider {
-    if(initiated) {
-
+    if(initialized && on_complete) {
+      on_complete();
     } else {
-
+      _provider.forEach(function(p:IAssetPathProvider,...ignore):void {
+        if(!p.initialized) {
+          p.init(function():void {
+            if(initialized && on_complete) on_complete();
+          }, on_error);
+        }
+      });
     }
     return this;
   }
@@ -35,9 +42,9 @@ public class AssetResolver implements IAssetPathProvider {
     return "";
   }
 
-  public function get initiated():Boolean {
+  public function get initialized():Boolean {
     return _provider.every(function(p:IAssetPathProvider,...ignore):Boolean {
-      return p.initiated;
+      return p.initialized;
     });
   }
 }

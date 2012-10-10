@@ -24,7 +24,7 @@ public class AssetPathProvider implements IAssetPathProvider {
     return this;
   }
 
-  public function get initiated():Boolean {
+  public function get initialized():Boolean {
     return _initiated;
   }
 

@@ -18,6 +18,6 @@ public interface IAssetPathProvider {
    * @param on_error        called on init error, gets Error as arg
    */
   function init(on_complete:Function, on_error:Function):IAssetPathProvider;
-  function get initiated():Boolean;
+  function get initialized():Boolean;
 }
 }

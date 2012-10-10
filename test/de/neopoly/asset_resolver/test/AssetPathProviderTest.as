@@ -31,7 +31,7 @@ public class AssetPathProviderTest {
   [Test]
   public function testInit():void {
     var p:AssetPathProvider = new AssetPathProvider();
-    assertFalse(p.initiated);
+    assertFalse(p.initialized);
 
     var errors:int = 0;
     var oks:int = 0;
