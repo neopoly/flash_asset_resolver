@@ -10,5 +10,13 @@ public interface IAssetPathProvider {
 
   function assetPathFor(key:String):String;
   function hasAssetPathFor(key:String):Boolean;
+
+  /**
+   * Will cause initialisation
+   * @param on_complete     called when init complete, gets AssetResolverEvent
+   * @param on_error        called on init error, gets AssetResolverEvent
+   */
+  function init(on_complete:Function, on_error:Function):void;
+  function get initiated():Boolean;
 }
 }
