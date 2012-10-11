@@ -49,12 +49,12 @@ public class AssetPathProviderTest {
 
     // error callback called when not initiated
     p.init(on_ok, on_error);
-    assertEquals(errors, 1);
+    assertEquals(errors, 0);
     assertEquals(oks, 0);
 
     // ok callback called when initiated
-    p.setMap({}).init(on_ok, on_error);
-    assertEquals(errors, 1);
+    p.setMap({});
+    assertEquals(errors, 0);
     assertEquals(oks, 1);
   }
 

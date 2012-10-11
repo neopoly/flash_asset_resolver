@@ -40,6 +40,15 @@ public class AssetResolverTest {
   public function testInit():void {
     var empty:AssetResolver = new AssetResolver();
     assertTrue(empty.initialized);
+
+    var p1:AssetPathProvider;
+    var p2: AssetPathProvider;
+    var some:AssetResolver = new AssetResolver(
+      p1 = new AssetPathProvider(),
+      p2 = new AssetPathProvider()
+    );
+    assertFalse(some.initialized);
+    // todo
   }
 
   [Test]
