@@ -8,6 +8,8 @@ public class AssetResolver implements IAssetPathProvider {
   public function AssetResolver(...provider) {
     if (provider && provider.length > 0) {
       _provider = provider;
+    } else {
+      _provider = [];
     }
   }
 
@@ -15,7 +17,7 @@ public class AssetResolver implements IAssetPathProvider {
    * Note: if AssetResolver is already initialized, a newly added provider still needs to be initialized itself! Just recall AssetResolver.init(...)
    */
   public function addProvider(provider:IAssetPathProvider):AssetResolver {
-    (_provider || (_provider = [])).push(provider);
+    _provider.push(provider);
     return this;
   }
 

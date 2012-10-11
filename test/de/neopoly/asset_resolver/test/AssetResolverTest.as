@@ -9,6 +9,8 @@ package de.neopoly.asset_resolver.test {
 import de.neopoly.asset_resolver.AssetResolver;
 import de.neopoly.asset_resolver.provider.AssetPathProvider;
 
+import org.flexunit.asserts.assertEquals;
+
 import org.flexunit.asserts.assertTrue;
 
 public class AssetResolverTest {
@@ -28,6 +30,11 @@ public class AssetResolverTest {
   public function AssetResolverTest() {
   }
 
+  [After]
+  public function tearDown():void {
+    _a = null;
+  }
+
   [Test]
   public function testInit():void {
     var empty:AssetResolver = new AssetResolver();
@@ -41,6 +48,7 @@ public class AssetResolverTest {
 
   [Test]
   public function testAssetPathFor():void {
+    assertEquals(_a.assetPathFor("one"), "one-xxx");
   }
 }
 }
