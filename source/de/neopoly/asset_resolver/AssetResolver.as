@@ -1,8 +1,9 @@
 package de.neopoly.asset_resolver {
+import de.neopoly.asset_resolver.provider.AssetPathProvider;
 import de.neopoly.asset_resolver.provider.IAssetPathProvider;
 
 public class AssetResolver implements IAssetPathProvider {
-  public static const VERSION:String = "0.0.1";
+  public static const VERSION:String = "0.1.0";
   private var _provider:Array;
 
   public function AssetResolver(...provider) {
@@ -22,6 +23,9 @@ public class AssetResolver implements IAssetPathProvider {
   }
 
   public function hasAssetPathFor(key:String):Boolean {
+    for each(var p:AssetPathProvider in _provider) {
+      if(p.hasAssetPathFor(key)) return true;
+    }
     return false;
   }
 
@@ -41,7 +45,10 @@ public class AssetResolver implements IAssetPathProvider {
   }
 
   public function assetPathFor(key:String):String {
-    return "";
+    for each(var p:AssetPathProvider in _provider) {
+      if(p.hasAssetPathFor(key)) return p.assetPathFor(key);
+    }
+    return null;
   }
 
   public function get initialized():Boolean {

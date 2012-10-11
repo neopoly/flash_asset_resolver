@@ -64,5 +64,16 @@ public class AssetResolverTest {
   public function testAssetPathFor():void {
     assertEquals(_a.assetPathFor("one"), "one-xxx");
   }
+
+  [Test]
+  public function testAssertPathTakenFromFirstMatchingProvider():void {
+    assertEquals(_a.assetPathFor("two"), "two-xxx");
+  }
+
+  [Test]
+  public function testHasAssetPathFor():void {
+    assertTrue(_a.hasAssetPathFor("one"));
+    assertFalse(_a.hasAssetPathFor("voihdsoigfhaskjghjdsaihjbvlkdaf:)"));
+  }
 }
 }
