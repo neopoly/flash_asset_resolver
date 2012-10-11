@@ -10,6 +10,7 @@ import de.neopoly.asset_resolver.AssetResolver;
 import de.neopoly.asset_resolver.provider.AssetPathProvider;
 
 import org.flexunit.asserts.assertEquals;
+import org.flexunit.asserts.assertFalse;
 
 import org.flexunit.asserts.assertTrue;
 
@@ -43,7 +44,20 @@ public class AssetResolverTest {
 
   [Test]
   public function testAddProvider():void {
-    // todo
+    assertTrue("starting initialized", _a.initialized);
+    assertFalse(_a.hasAssetPathFor("newly_added_key"));
+
+    var p:AssetPathProvider;
+
+    _a.addProvider(
+      p = new AssetPathProvider()
+    );
+
+    assertFalse("no longer initialized", _a.initialized);
+    p.setMap({newly_added_key: "test"});
+
+    assertTrue("initialized again", _a.initialized);
+    assertTrue("has new key", _a.hasAssetPathFor("newly_added_key"));
   }
 
   [Test]
