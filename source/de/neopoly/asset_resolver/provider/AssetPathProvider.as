@@ -11,20 +11,32 @@ public class AssetPathProvider implements IAssetPathProvider {
   private var _map:Object; // maps key to path
   private var _initialized:Boolean;
   private var _on_init_complete:Function;
+  private var _on_init_error:Function;
 
   public function AssetPathProvider() {
     _initialized = false;
   }
 
   /**
-   * Set key -> pathname mapping
+   * Set key -> pathname mapping. Also calls on_init_complete callback.
    */
   public function setMap(map:Object):AssetPathProvider {
     _map = map;
     _initialized = true;
-    if(_on_init_complete) _on_init_complete();
-    _on_init_complete = null;
+    if(_on_init_complete) {
+      var init_complete_was:Function = _on_init_complete;
+      _on_init_complete = null; // kill reference before call, otherwise a reference-change in callback would be killed directly
+      init_complete_was();
+    }
     return this;
+  }
+
+  public function tellInitError(err:Error):void {
+    if(_on_init_error) {
+      var was:Function = _on_init_error;
+      _on_init_error = null;
+      was(err);
+    }
   }
 
   public function get initialized():Boolean {
@@ -34,10 +46,12 @@ public class AssetPathProvider implements IAssetPathProvider {
   public function init(on_complete:Function, on_error:Function):IAssetPathProvider {
     // That's just for the basic implementation! The use of "setMap" will set _initiated, so if setMap was already called, the complete callback will fire, otherwise the error fallback.
     _on_init_complete = null;
+    _on_init_error = null;
     if(initialized) {
       on_complete();
     } else {
       _on_init_complete = on_complete;
+      _on_init_error = on_error;
       // now somewhen you should init it
     }
     return this;
