@@ -105,5 +105,18 @@ public class AssetPathProviderTest {
     assertEquals(_provider.assetPathFor("two"), "two-123");
     assertEquals(_provider.assetPathFor("three"), null);
   }
+
+  [Test]
+  public function testErrorCallback():void {
+    var p:AssetPathProvider = new AssetPathProvider();
+    var errors:int = 0;
+    p.init(null, function(err:Error):void {
+      errors++;
+      assertEquals(err.message, "test-error");
+    });
+    assertEquals(errors, 0);
+    p.tellInitError(new Error("test-error"));
+    assertEquals(errors, 1);
+  }
 }
 }
