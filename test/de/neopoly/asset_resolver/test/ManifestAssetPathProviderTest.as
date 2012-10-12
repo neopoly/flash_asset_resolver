@@ -16,7 +16,7 @@ public class ManifestAssetPathProviderTest {
 
 
   [Test]
-  public function testPathnames():void {
+  public function testPaths():void {
     var m:ManifestAssetPathProvider = new ManifestAssetPathProvider();
     assertEquals(m.host_url, "");
     assertEquals(m.manifest_file_url, ManifestAssetPathProvider.DEFAULT_MANIFEST_SUBPATH);
@@ -24,6 +24,18 @@ public class ManifestAssetPathProviderTest {
     m = new ManifestAssetPathProvider("/");
     assertEquals(m.host_url, "/");
     assertEquals(m.manifest_file_url, "/" + ManifestAssetPathProvider.DEFAULT_MANIFEST_SUBPATH);
+
+    m = new ManifestAssetPathProvider("ASSET/HOST/PATH", "ASSET/HOST/MANIFEST/FILE/PATH");
+    assertEquals(m.host_url, "ASSET/HOST/PATH");
+    assertEquals(m.manifest_file_url, "ASSET/HOST/MANIFEST/FILE/PATH");
+
+    m = new ManifestAssetPathProvider("host/");
+    assertEquals(m.host_url, "host/");
+    assertEquals(m.manifest_file_url, "host/" + ManifestAssetPathProvider.DEFAULT_MANIFEST_SUBPATH);
+
+    m = new ManifestAssetPathProvider("host");
+    assertEquals(m.host_url, "host");
+    assertEquals(m.manifest_file_url, "host/" + ManifestAssetPathProvider.DEFAULT_MANIFEST_SUBPATH);
   }
 }
 }

@@ -13,11 +13,26 @@ public class ManifestAssetPathProvider {
   }
 
   public function get manifest_file_url():String {
-    return ""; // todo
+    if(_manifest_url && _manifest_url !== "") return _manifest_url;
+    return concatPaths(host_url, DEFAULT_MANIFEST_SUBPATH);
   }
 
   public function get host_url():String {
-    return ""; // todo
+    return _host_url;
+  }
+
+  private function concatPaths(pre:String, post:String):String {
+    trace("was:", pre, post);
+    if(!post || post === "" || post === "/") return pre;
+    if(!pre || pre === "") return post;
+    if(pre.indexOf("/") === pre.length -1) {
+      trace("pre was '" + pre + "'");
+      pre = pre.substring(0, pre.length -1);
+      trace("pre is '" + pre + "'");
+    }
+    if(post.indexOf("/") === 0) post = post.substring(1);
+    trace("is:", pre, post);
+    return pre + "/" + post;
   }
 }
 }
