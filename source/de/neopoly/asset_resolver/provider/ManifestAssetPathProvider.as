@@ -3,7 +3,7 @@
  */
 package de.neopoly.asset_resolver.provider {
 public class ManifestAssetPathProvider {
-  private static const DEFAULT_MANIFEST_SUBPATH:String = "assets/manifest.yml";
+  public static const DEFAULT_MANIFEST_SUBPATH:String = "assets/manifest.yml";
   private var _host_url:String;
   private var _manifest_url:String;
 
@@ -12,11 +12,11 @@ public class ManifestAssetPathProvider {
     _manifest_url = manifest_file_url;
   }
 
-  protected function get manifest_file_url():String {
+  public function get manifest_file_url():String {
     return ""; // todo
   }
 
-  protected function get host_url():String {
+  public function get host_url():String {
     return ""; // todo
   }
 }
