@@ -12,10 +12,12 @@ public class ManifestAssetPathProvider extends AssetPathProvider {
   public static const DEFAULT_MANIFEST_SUBPATH:String = "assets/manifest.yml";
   private var _host_url:String;
   private var _manifest_url:String;
+  private var _asset_prefix:String;
 
-  public function ManifestAssetPathProvider(asset_host_url:String = "", manifest_file_url:String = null) {
+  public function ManifestAssetPathProvider(asset_host_url:String = "", manifest_file_url:String = null, asset_prefix:String = null) {
     _host_url = asset_host_url;
     _manifest_url = manifest_file_url;
+    _asset_prefix = asset_prefix === null ? asset_host_url : asset_prefix;
   }
 
   public function get manifest_file_url():String {
