@@ -8,7 +8,18 @@
 package de.neopoly.asset_resolver.test {
 import de.neopoly.asset_resolver.provider.ManifestAssetPathProvider;
 
+import flash.display.Loader;
+import flash.events.Event;
+import flash.events.IOErrorEvent;
+import flash.events.SecurityErrorEvent;
+import flash.net.URLLoader;
+import flash.net.URLRequest;
+import flash.system.Security;
+
+import flexunit.framework.Assert;
+
 import org.flexunit.asserts.assertEquals;
+import org.flexunit.async.Async;
 
 public class ManifestAssetPathProviderTest {
   public function ManifestAssetPathProviderTest() {
@@ -36,6 +47,19 @@ public class ManifestAssetPathProviderTest {
     m = new ManifestAssetPathProvider("host");
     assertEquals(m.host_url, "host");
     assertEquals(m.manifest_file_url, "host/" + ManifestAssetPathProvider.DEFAULT_MANIFEST_SUBPATH);
+  }
+
+  // [Test(async)]
+  public function testLoadAndInit():void {
+    Async.asyncHandler(this,null, 300,null, function (...ignore):void { Assert.fail("timeout"); });
+    var l:URLLoader = new URLLoader();
+    var onerror:Function = function(evt:Event):void {
+      trace(evt);
+      Assert.fail("" + evt);
+    };
+    l.addEventListener(IOErrorEvent.IO_ERROR, onerror);
+    l.addEventListener(SecurityErrorEvent.SECURITY_ERROR, onerror);
+    l.load(new URLRequest("test.yml"));
   }
 }
 }
