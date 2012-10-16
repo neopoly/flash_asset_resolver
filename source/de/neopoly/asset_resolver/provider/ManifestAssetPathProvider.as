@@ -2,6 +2,12 @@
  * Defaults for
  */
 package de.neopoly.asset_resolver.provider {
+import flash.events.Event;
+import flash.events.IOErrorEvent;
+import flash.events.SecurityErrorEvent;
+import flash.net.URLLoader;
+import flash.net.URLRequest;
+
 public class ManifestAssetPathProvider extends AssetPathProvider {
   public static const DEFAULT_MANIFEST_SUBPATH:String = "assets/manifest.yml";
   private var _host_url:String;
@@ -17,8 +23,23 @@ public class ManifestAssetPathProvider extends AssetPathProvider {
     return concatPaths(host_url, DEFAULT_MANIFEST_SUBPATH);
   }
 
-  override public function init(on_complete:Function, on_error:Function):IAssetPathProvider {
-    return super.init(on_complete, on_error);
+  override protected function executeInit():void {
+    var l:URLLoader = new URLLoader();
+    var onerror:Function = function(evt:Event):void {
+      tellInitError(evt);
+    };
+
+    l.addEventListener(IOErrorEvent.IO_ERROR, onerror);
+    l.addEventListener(SecurityErrorEvent.SECURITY_ERROR, onerror);
+    l.addEventListener(Event.COMPLETE, function (...ignore):void {
+      trace("done loading");
+      l.removeEventListener(IOErrorEvent.IO_ERROR, onerror);
+      l.removeEventListener(SecurityErrorEvent.SECURITY_ERROR, onerror);
+      setMap({});
+    });
+
+    l.load(new URLRequest(manifest_file_url));
+    trace("start loading");
   }
 
   public function get host_url():String {

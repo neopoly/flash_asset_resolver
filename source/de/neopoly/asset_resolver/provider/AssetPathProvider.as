@@ -43,8 +43,11 @@ public class AssetPathProvider implements IAssetPathProvider {
     return _initialized;
   }
 
+  protected function executeInit():void {
+    // todo: override this to init!
+  }
+
   public function init(on_complete:Function, on_error:Function):IAssetPathProvider {
-    // That's just for the basic implementation! The use of "setMap" will set _initiated, so if setMap was already called, the complete callback will fire, otherwise the error fallback.
     _on_init_complete = null;
     _on_init_error = null;
     if(initialized) {
@@ -52,7 +55,7 @@ public class AssetPathProvider implements IAssetPathProvider {
     } else {
       _on_init_complete = on_complete;
       _on_init_error = on_error;
-      // now somewhen you should init it
+      executeInit();
     }
     return this;
   }

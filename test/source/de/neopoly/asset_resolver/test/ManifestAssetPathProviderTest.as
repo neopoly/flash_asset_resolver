@@ -52,15 +52,7 @@ public class ManifestAssetPathProviderTest {
   [Test(async)]
   public function testLoadAndInit():void {
     var handler:Function = Async.asyncHandler(this,null, 300,null, function (...ignore):void { Assert.fail("timeout"); });
-    var l:URLLoader = new URLLoader();
-    var onerror:Function = function(evt:Event):void {
-      trace(evt);
-      Assert.fail("" + evt);
-    };
-    l.addEventListener(IOErrorEvent.IO_ERROR, onerror);
-    l.addEventListener(SecurityErrorEvent.SECURITY_ERROR, onerror);
-    l.addEventListener(Event.COMPLETE, function (...ignore):void { handler(); });
-    l.load(new URLRequest("files/test_manifest.yml"));
+    new ManifestAssetPathProvider("", "files/test_manifest.xml").init(function (...ignore):void {handler();}, function (...ignore):void { Assert.fail("init shows error, should not!");});
   }
 }
 }
