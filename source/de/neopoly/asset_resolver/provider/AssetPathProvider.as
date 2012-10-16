@@ -31,11 +31,11 @@ public class AssetPathProvider implements IAssetPathProvider {
     return this;
   }
 
-  public function tellInitError(err:Error):void {
+  public function tellInitError(error_or_error_event:*):void {
     if(_on_init_error) {
       var was:Function = _on_init_error;
       _on_init_error = null;
-      was(err);
+      was(error_or_error_event);
     }
   }
 

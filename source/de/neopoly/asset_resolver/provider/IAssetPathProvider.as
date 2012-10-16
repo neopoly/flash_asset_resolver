@@ -15,7 +15,7 @@ public interface IAssetPathProvider {
   /**
    * Will cause initialisation
    * @param on_complete     called when init complete, no args
-   * @param on_error        called on init error, gets Error as arg
+   * @param on_error        called on init error, gets Error or Error-Event as arg
    */
   function init(on_complete:Function, on_error:Function):IAssetPathProvider;
   function get initialized():Boolean;

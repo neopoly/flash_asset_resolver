@@ -49,9 +49,9 @@ public class ManifestAssetPathProviderTest {
     assertEquals(m.manifest_file_url, "host/" + ManifestAssetPathProvider.DEFAULT_MANIFEST_SUBPATH);
   }
 
-  // [Test(async)]
+  [Test(async)]
   public function testLoadAndInit():void {
-    Async.asyncHandler(this,null, 300,null, function (...ignore):void { Assert.fail("timeout"); });
+    var handler:Function = Async.asyncHandler(this,null, 300,null, function (...ignore):void { Assert.fail("timeout"); });
     var l:URLLoader = new URLLoader();
     var onerror:Function = function(evt:Event):void {
       trace(evt);
@@ -59,7 +59,8 @@ public class ManifestAssetPathProviderTest {
     };
     l.addEventListener(IOErrorEvent.IO_ERROR, onerror);
     l.addEventListener(SecurityErrorEvent.SECURITY_ERROR, onerror);
-    l.load(new URLRequest("test.yml"));
+    l.addEventListener(Event.COMPLETE, function (...ignore):void { handler(); });
+    l.load(new URLRequest("files/test_manifest.yml"));
   }
 }
 }

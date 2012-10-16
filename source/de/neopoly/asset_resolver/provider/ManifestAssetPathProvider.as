@@ -2,7 +2,7 @@
  * Defaults for
  */
 package de.neopoly.asset_resolver.provider {
-public class ManifestAssetPathProvider {
+public class ManifestAssetPathProvider extends AssetPathProvider {
   public static const DEFAULT_MANIFEST_SUBPATH:String = "assets/manifest.yml";
   private var _host_url:String;
   private var _manifest_url:String;
@@ -15,6 +15,10 @@ public class ManifestAssetPathProvider {
   public function get manifest_file_url():String {
     if(_manifest_url && _manifest_url !== "") return _manifest_url;
     return concatPaths(host_url, DEFAULT_MANIFEST_SUBPATH);
+  }
+
+  override public function init(on_complete:Function, on_error:Function):IAssetPathProvider {
+    return super.init(on_complete, on_error);
   }
 
   public function get host_url():String {
