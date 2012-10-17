@@ -50,9 +50,15 @@ public class ManifestAssetPathProviderTest {
   }
 
   [Test(async)]
-  public function testLoadAndInit():void {
+  public function testInitDone():void {
     var handler:Function = Async.asyncHandler(this,null, 300,null, function (...ignore):void { Assert.fail("timeout"); });
-    new ManifestAssetPathProvider("", "files/test_manifest.xml").init(function (...ignore):void {handler();}, function (...ignore):void { Assert.fail("init shows error, should not!");});
+    new ManifestAssetPathProvider("", "files/test_manifest.yml").init(function (...ignore):void {handler();}, function (err:*):void { Assert.fail("init shows error, should not! " + err);});
+  }
+
+  [Test(async)]
+  public function testInitError():void {
+    var handler:Function = Async.asyncHandler(this,null, 300,null, function (...ignore):void { Assert.fail("timeout"); });
+    new ManifestAssetPathProvider("", "files/this/does/not/exists.yml").init(function ():void { Assert.fail("should not init, but did");}, function (...ignore):void {handler();});
   }
 }
 }
