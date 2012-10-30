@@ -10,14 +10,22 @@ import flash.net.URLRequest;
 
 public class ManifestAssetPathProvider extends AssetPathProvider {
   public static const DEFAULT_MANIFEST_SUBPATH:String = "assets/manifest.json";
+  private static var __DATA_PARSER:Function = null;
+
   private var _host_url:String;
   private var _manifest_url:String;
   private var _asset_prefix:String;
+  private var _parser:Function;
 
-  public function ManifestAssetPathProvider(asset_host_url:String = "", manifest_file_url:String = null, asset_prefix:String = null) {
+  public function ManifestAssetPathProvider(asset_host_url:String = "", manifest_file_url:String = null, asset_prefix:String = null, parser:Function = null) {
     _host_url = asset_host_url;
     _manifest_url = manifest_file_url;
     _asset_prefix = asset_prefix === null ? asset_host_url : asset_prefix;
+    _parser = parser;
+  }
+
+  public static function setGlobalParser(parse:Function):void {
+    __DATA_PARSER = parse;
   }
 
   public function get manifest_file_url():String {
@@ -37,7 +45,9 @@ public class ManifestAssetPathProvider extends AssetPathProvider {
       l.removeEventListener(IOErrorEvent.IO_ERROR, onerror);
       l.removeEventListener(SecurityErrorEvent.SECURITY_ERROR, onerror);
       try {
-        var parsed:Object = JSON.parse(l.data);
+        if(!_parser && !__DATA_PARSER) throw new Error("No Parser set.");
+
+        var parsed:Object = (_parser || __DATA_PARSER)(l.data);
         setMap(parsed);
       } catch(err:Error) {
         tellInitError(err);
