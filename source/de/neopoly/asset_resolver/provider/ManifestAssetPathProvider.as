@@ -8,6 +8,8 @@ import flash.events.SecurityErrorEvent;
 import flash.net.URLLoader;
 import flash.net.URLRequest;
 
+import parsers.yaml.YAML;
+
 public class ManifestAssetPathProvider extends AssetPathProvider {
   public static const DEFAULT_MANIFEST_SUBPATH:String = "assets/manifest.yml";
   private var _host_url:String;
@@ -34,14 +36,17 @@ public class ManifestAssetPathProvider extends AssetPathProvider {
     l.addEventListener(IOErrorEvent.IO_ERROR, onerror);
     l.addEventListener(SecurityErrorEvent.SECURITY_ERROR, onerror);
     l.addEventListener(Event.COMPLETE, function (...ignore):void {
-      trace("done loading");
       l.removeEventListener(IOErrorEvent.IO_ERROR, onerror);
       l.removeEventListener(SecurityErrorEvent.SECURITY_ERROR, onerror);
-      setMap({});
+      try {
+        var parsed:Object = new YAML
+        setMap(parsed);
+      } catch(err:Error) {
+        tellInitError(err);
+      }
     });
 
     l.load(new URLRequest(manifest_file_url));
-    trace("start loading");
   }
 
   public function get host_url():String {
@@ -49,13 +54,10 @@ public class ManifestAssetPathProvider extends AssetPathProvider {
   }
 
   private function concatPaths(pre:String, post:String):String {
-    trace("was:", pre, post);
     if(!post || post === "" || post === "/") return pre;
     if(!pre || pre === "") return post;
     if(pre.indexOf("/") === pre.length -1) {
-      trace("pre was '" + pre + "'");
       pre = pre.substring(0, pre.length -1);
-      trace("pre is '" + pre + "'");
     }
     if(post.indexOf("/") === 0) post = post.substring(1);
     trace("is:", pre, post);

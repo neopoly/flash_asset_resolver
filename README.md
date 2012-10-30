@@ -8,13 +8,13 @@ Desired usage (how I'd like to use the resolver)
 ------------------------------------------------
 
    new AssetResolver(
-     new ManifestAssetPathProvider("http://my/asset/host"),
-     new ManifestAssetPathProvider("http://my/other/asset/host")
+     new ManifestAssetPathProvider("http://my/asset/host", "http://my/asset/host/manifest-12345.json"),
+     new ManifestAssetPathProvider("http://my/other/asset/host", "http://my/other/asset/host/manifest-456987.json")
    ).init(myCompleteCallback, myErrorCallback);
 
 
 Requires
 --------
 
-* asYAML: Actionscrip YAML parser from git://github.com/yaml/as3YAML.git
+* Target FlashPlayer 11 to use native JSON parser
 * for tests: Flexunit 4.*
