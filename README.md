@@ -16,5 +16,5 @@ Desired usage (how I'd like to use the resolver)
 Requires
 --------
 
-* Target FlashPlayer 11 to use native JSON parser
+* for parsing manifest file: Require your favorite parser for manifest file (I use JSON parser from http://www.blooddy.by/en/crypto/)
 * for tests: Flexunit 4.*
