@@ -22,9 +22,6 @@ public class AssetPathProvider implements IAssetPathProvider {
    */
   public function setMap(map:Object):AssetPathProvider {
     _map = map;
-    for (var k:String in map) {
-      if(map.hasOwnProperty(k)) trace("- " + k + " => " + map[k]);
-    }
     _initialized = true;
     if(_on_init_complete) {
       var init_complete_was:Function = _on_init_complete;
@@ -72,6 +69,5 @@ public class AssetPathProvider implements IAssetPathProvider {
   }
 
   protected function get map():Object { return _map; }
-  protected function set map(val:Object):void { _map = val; }
 }
 }

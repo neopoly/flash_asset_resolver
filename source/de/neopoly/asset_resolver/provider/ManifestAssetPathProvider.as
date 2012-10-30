@@ -20,8 +20,12 @@ public class ManifestAssetPathProvider extends AssetPathProvider {
   public function ManifestAssetPathProvider(asset_host_url:String = "", manifest_file_url:String = null, asset_prefix:String = null, parser:Function = null) {
     _host_url = asset_host_url;
     _manifest_url = manifest_file_url;
-    _asset_prefix = asset_prefix === null ? asset_host_url : asset_prefix;
+    _asset_prefix = !asset_prefix ? host_url : asset_prefix;
     _parser = parser;
+  }
+
+  override public function assetPathFor(key:String):String {
+    return concatPaths(_asset_prefix, super.assetPathFor(key));
   }
 
   public static function setGlobalParser(parse:Function):void {
