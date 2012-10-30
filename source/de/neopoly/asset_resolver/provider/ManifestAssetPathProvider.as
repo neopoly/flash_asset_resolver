@@ -39,7 +39,7 @@ public class ManifestAssetPathProvider extends AssetPathProvider {
       l.removeEventListener(IOErrorEvent.IO_ERROR, onerror);
       l.removeEventListener(SecurityErrorEvent.SECURITY_ERROR, onerror);
       try {
-        var parsed:Object = new YAML
+        var parsed:Object = JSON.parse(l.data);
         setMap(parsed);
       } catch(err:Error) {
         tellInitError(err);
