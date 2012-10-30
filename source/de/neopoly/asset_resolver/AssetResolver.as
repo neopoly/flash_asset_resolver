@@ -30,8 +30,8 @@ public class AssetResolver implements IAssetPathProvider {
   }
 
   public function init(on_complete:Function, on_error:Function):IAssetPathProvider {
-    if(initialized && on_complete) {
-      on_complete();
+    if(initialized) {
+      if(on_complete) on_complete();
     } else {
       _provider.forEach(function(p:IAssetPathProvider,...ignore):void {
         if(!p.initialized) {

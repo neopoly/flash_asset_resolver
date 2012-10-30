@@ -8,10 +8,8 @@ import flash.events.SecurityErrorEvent;
 import flash.net.URLLoader;
 import flash.net.URLRequest;
 
-import parsers.yaml.YAML;
-
 public class ManifestAssetPathProvider extends AssetPathProvider {
-  public static const DEFAULT_MANIFEST_SUBPATH:String = "assets/manifest.yml";
+  public static const DEFAULT_MANIFEST_SUBPATH:String = "assets/manifest.json";
   private var _host_url:String;
   private var _manifest_url:String;
   private var _asset_prefix:String;

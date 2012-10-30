@@ -51,7 +51,7 @@ public class ManifestAssetPathProviderTest {
   [Test(async)]
   public function testInitError():void {
     var handler:Function = Async.asyncHandler(this,null, 300,null, function (...ignore):void { Assert.fail("timeout"); });
-    new ManifestAssetPathProvider("", "files/this/does/not/exists.yml").init(function ():void { Assert.fail("should not init, but did");}, function (...ignore):void {handler();});
+    new ManifestAssetPathProvider("", "files/this/does/not/exists.json").init(function ():void { Assert.fail("should not init, but did");}, function (...ignore):void {handler();});
   }
 
   [Test(async)]
@@ -59,7 +59,7 @@ public class ManifestAssetPathProviderTest {
     var m:IAssetPathProvider;
     var handler:Function = Async.asyncHandler(this,null, 300,function (...ignore):void {
     }, function (...ignore):void { Assert.fail("timeout"); });
-    m = new ManifestAssetPathProvider("http://nevermind", "files/test_manifest.yml").init(function (...ignore):void {
+    m = new ManifestAssetPathProvider("http://nevermind", "files/test_manifest.json").init(function (...ignore):void {
       assertEquals(m.assetPathFor("test.jpg"), "http://nevermind/test-123.jpg");
       handler();
     }, function (err:*):void { Assert.fail("init shows error, should not! " + err);});
