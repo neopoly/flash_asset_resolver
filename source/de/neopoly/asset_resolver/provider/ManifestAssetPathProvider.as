@@ -72,7 +72,6 @@ public class ManifestAssetPathProvider extends AssetPathProvider {
       pre = pre.substring(0, pre.length -1);
     }
     if(post.indexOf("/") === 0) post = post.substring(1);
-    trace("is:", pre, post);
     return pre + "/" + post;
   }
 }
