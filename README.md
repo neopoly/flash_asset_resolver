@@ -9,11 +9,12 @@ Desired usage (how I'd like to use the resolver)
 
     ManifestAssetPathProvider.setGlobalParser(JSON.decode);
     
-    new AssetResolver(
+    var p:IAssetPathProvider = new AssetResolver(
       new ManifestAssetPathProvider("http://my/asset/host", "http://my/asset/host/manifest-12345.json"),
       new ManifestAssetPathProvider("http://my/other/asset/host", "http://my/other/asset/host/manifest-456987.json")
     ).init(myCompleteCallback, myErrorCallback);
-
+    
+    trace(p.assetPathFor("test/image.jpg"));      // => http://my/asset/host/test/image-4312.jpg
 
 Requires
 --------
