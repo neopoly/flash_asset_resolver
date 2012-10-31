@@ -7,10 +7,10 @@ Utilise rails manifest.yml to resolve asset paths (and leave room to use other p
 Desired usage (how I'd like to use the resolver)
 ------------------------------------------------
 
-   new AssetResolver(
-     new ManifestAssetPathProvider("http://my/asset/host", "http://my/asset/host/manifest-12345.json"),
-     new ManifestAssetPathProvider("http://my/other/asset/host", "http://my/other/asset/host/manifest-456987.json")
-   ).init(myCompleteCallback, myErrorCallback);
+    new AssetResolver(
+      new ManifestAssetPathProvider("http://my/asset/host", "http://my/asset/host/manifest-12345.json"),
+      new ManifestAssetPathProvider("http://my/other/asset/host", "http://my/other/asset/host/manifest-456987.json")
+    ).init(myCompleteCallback, myErrorCallback);
 
 
 Requires
