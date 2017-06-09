@@ -1,3 +1,5 @@
+:skull: DEPRECATED
+
 Flash Asset Resolver
 ====================
 
